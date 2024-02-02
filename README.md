@@ -225,7 +225,7 @@ GROUP BY
 
 6. Any other insights you found during your analysis?
 
-It is essential to find out which duration movies generate the most total gross revenue.
+-- It is essential to find out which duration movies generate the most total gross revenue.
 ```SQL
 SELECT
 	CASE 
@@ -246,3 +246,35 @@ ORDER BY
 So we find out that movies longer than 125 minutes are the most profitable.
 
 <img width="292" alt="Screenshot 2024-02-02 at 18 09 11" src="https://github.com/Yegrii/Misfire/assets/30467268/2c43ab2f-c0c1-4ac9-9649-f5a298ccaed7">
+
+
+-- We need to identify the top 10 countries of movie producers.
+```SQL
+SELECT 
+	country ,
+	SUM(gross) AS total
+FROM 
+	films f 
+GROUP BY
+	country 
+ORDER BY 
+	total DESC 
+LIMIT 10;
+```
+
+-- Now we need to find out which language movies make the most in box office:
+```SQL
+SELECT 
+	`language` ,
+	SUM(gross) AS total 
+FROM 
+	films f 
+GROUP BY
+	`language` 
+ORDER BY 
+	total DESC 
+LIMIT 5;
+```
+We can see that English language movies have grossed about a hundred times the total box office receipts:
+
+<img width="279" alt="Screenshot 2024-02-02 at 21 29 31" src="https://github.com/Yegrii/Misfire/assets/30467268/d7e9ff72-82a7-4a06-9e40-46f23e547b1d">
