@@ -10,7 +10,7 @@ Help your team leader understand the data that's available in the _cinema.films_
 3. How many different certifications or ratings are present in the database?
 4. What are the top five countries in terms of number of movies produced?
 5. What is the average duration of English versus French movies? (Don't forget, you can use the AI assistant!)
-6. Any other insights you found during your analysis
+6. Any other insights you found during your analysis?
 
 
 When loading the dataset into the database, there were errors because several columns should contain INT numeric values, but there are text "null" along with the numeric data. 
