@@ -157,3 +157,70 @@ FROM
 WHERE 
 	budget IS NULL ;
 ```
+
+3. How many different certifications or ratings are present in the database?
+
+The certification column contains 13 different types, including 1 empty certificate.
+```SQL
+SELECT 
+	COUNT(DISTINCT certification)
+FROM
+	films f ;
+```
+Let's count how many movies apply to each certification.
+```SQL
+SELECT 
+	certification ,
+	COUNT(*) AS cert_count
+FROM 
+	films f 
+GROUP BY
+	certification 
+ORDER BY 
+	cert_count DESC
+```
+<img width="307" alt="Screenshot 2024-02-02 at 17 33 57" src="https://github.com/Yegrii/Misfire/assets/30467268/cff40e3e-88a1-45f7-9324-0bad8f9bc81e">
+
+I suggest replacing the empty certification with 'Not Rated'. 
+```SQL
+UPDATE films 
+SET certification = 'Not Rated'
+WHERE certification = '';
+```
+<img width="310" alt="Screenshot 2024-02-02 at 17 36 54" src="https://github.com/Yegrii/Misfire/assets/30467268/c6bc165b-bf88-4a10-ba26-01f31b4209a3">
+
+4. What are the top five countries in terms of number of movies produced?
+
+Top 5 countries:
+
+```SQL
+SELECT 
+	country ,
+	COUNT(*) AS country_num
+FROM 
+	films f 
+GROUP BY
+	country 
+ORDER BY 
+	country_num DESC 
+LIMIT 5;
+```
+<img width="297" alt="Screenshot 2024-02-02 at 17 42 02" src="https://github.com/Yegrii/Misfire/assets/30467268/d1a5aea8-1d3f-46b0-abf4-6915cefbcd0a">
+
+5. What is the average duration of English versus French movies?
+
+The average English-language movie runs ~3 minutes longer than French-language movies.
+```SQL
+SELECT 
+	`language` ,
+	ROUND(AVG(duration), 2) AS avg_duration
+FROM 
+	films f 
+WHERE 
+	`language` IN ('English', 'French')
+GROUP BY 
+	`language`;
+```
+<img width="307" alt="Screenshot 2024-02-02 at 17 48 00" src="https://github.com/Yegrii/Misfire/assets/30467268/6d36ee5e-ef12-4422-8c90-ba51898c67df">
+
+6. Any other insights you found during your analysis?
