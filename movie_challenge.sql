@@ -191,7 +191,7 @@ GROUP BY
 
 -- 6. Any other insights you found during your analysis?
 
--- How the duration of a movie affects box office receipts.
+-- How the length of a movie affects gross box office.
 
 SELECT
 	CASE 
@@ -209,4 +209,26 @@ GROUP BY
 ORDER BY 
 	2 DESC;
 
-	
+-- Top 10 movie producing countries	
+SELECT 
+	country ,
+	SUM(gross) AS total
+FROM 
+	films f 
+GROUP BY
+	country 
+ORDER BY 
+	total DESC 
+LIMIT 10;
+
+-- Top 5 
+SELECT 
+	`language` ,
+	SUM(gross) AS total 
+FROM 
+	films f 
+GROUP BY
+	`language` 
+ORDER BY 
+	total DESC 
+LIMIT 5;
