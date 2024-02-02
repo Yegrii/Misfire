@@ -2,6 +2,17 @@
 Your manager, an executive at the company, wants to make new movies that 'recapture the magic of old Hollywood.' 
 So you've decided to look at the most successful films to help generate ideas that could turn into future successful films.
 
+💪 Challenge II
+Help your team leader understand the data that's available in the _cinema.films_ dataset. Include:
+
+1. How many movies are present in the database?
+2. There seems to be a lot of missing data in the gross and budget columns. How many rows have missing data? What would you recommend your manager to do with these rows?
+3. How many different certifications or ratings are present in the database?
+4. What are the top five countries in terms of number of movies produced?
+5. What is the average duration of English versus French movies? (Don't forget, you can use the AI assistant!)
+6. Any other insights you found during your analysis
+
+
 When loading the dataset into the database, there were errors because several columns should contain INT numeric values, but there are text "null" along with the numeric data. 
 Therefore, when loading data into the database, I declared all data except ID as VARCHAR.
 
@@ -80,3 +91,69 @@ DESC films;
 <img width="513" alt="Screenshot 2024-02-02 at 14 31 17" src="https://github.com/Yegrii/Misfire/assets/30467268/6fbe555a-b176-45a1-a5f3-7b673502cd42">
 
 The data is now ready for further processing.
+
+1. How many movies are present in the database?
+
+There are 4,968 movies in the database
+```SQL
+SELECT 
+	COUNT(title)
+FROM 
+	films f ;
+```
+but there are only 4,844 unique movie titles
+```SQL
+SELECT 
+	COUNT(DISTINCT title)
+FROM 
+	films f ;
+```
+110 movies that meet 2 times
+```SQL
+SELECT 
+	title ,
+	COUNT(*) AS dupli 
+FROM 
+	films f 
+GROUP BY 
+	title  
+HAVING 
+	COUNT(*) = 2
+ORDER BY 
+	dupli DESC ;
+```
+and seven movies that meet 3 times.
+```SQL
+SELECT 
+	title ,
+	COUNT(*) AS dupli 
+FROM 
+	films f 
+GROUP BY 
+	title  
+HAVING 
+	COUNT(*) > 2
+ORDER BY 
+	dupli DESC ;
+```
+
+2. There seems to be a lot of missing data in the gross and budget columns. How many rows have missing data? What would you recommend your manager to do with these rows?
+
+The gross column contains 810 missing rows.
+```SQL
+SELECT
+	COUNT(*)
+FROM 
+	films f 
+WHERE 
+	gross IS NULL ;
+```
+The budget column contains 430 missing rows.
+```SQL
+SELECT
+	COUNT(*)
+FROM 
+	films f 
+WHERE 
+	budget IS NULL ;
+```
