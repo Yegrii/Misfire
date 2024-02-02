@@ -224,3 +224,25 @@ GROUP BY
 <img width="307" alt="Screenshot 2024-02-02 at 17 48 00" src="https://github.com/Yegrii/Misfire/assets/30467268/6d36ee5e-ef12-4422-8c90-ba51898c67df">
 
 6. Any other insights you found during your analysis?
+
+It is essential to find out which duration movies generate the most total gross revenue.
+```SQL
+SELECT
+	CASE 
+		WHEN duration <= 99 THEN '< 100 min'
+		WHEN duration BETWEEN 100 AND 125 THEN '<= 125 min'
+		ELSE '> 125 min'
+	END AS gradation,
+	ROUND(AVG(gross), 2) AS avg_gross
+FROM 
+	films f 
+WHERE 
+	gross IS NOT NULL 
+GROUP BY 
+	1
+ORDER BY 
+	2 DESC;
+```
+So we find out that movies longer than 125 minutes are the most profitable.
+
+<img width="292" alt="Screenshot 2024-02-02 at 18 09 11" src="https://github.com/Yegrii/Misfire/assets/30467268/2c43ab2f-c0c1-4ac9-9649-f5a298ccaed7">
