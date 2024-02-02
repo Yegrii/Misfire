@@ -190,3 +190,23 @@ GROUP BY
 	`language`;
 
 -- 6. Any other insights you found during your analysis?
+
+-- How the duration of a movie affects box office receipts.
+
+SELECT
+	CASE 
+		WHEN duration <= 99 THEN '< 100 min'
+		WHEN duration BETWEEN 100 AND 125 THEN '<= 125 min'
+		ELSE '> 125 min'
+	END AS gradation,
+	ROUND(AVG(gross), 2) AS avg_gross
+FROM 
+	films f 
+WHERE 
+	gross IS NOT NULL 
+GROUP BY 
+	1
+ORDER BY 
+	2 DESC;
+
+	
