@@ -221,7 +221,7 @@ ORDER BY
 	total DESC 
 LIMIT 10;
 
--- Top 5 
+-- Top 5 movie language
 SELECT 
 	`language` ,
 	SUM(gross) AS total 
@@ -232,3 +232,51 @@ GROUP BY
 ORDER BY 
 	total DESC 
 LIMIT 5;
+
+
+SELECT 
+	*
+FROM 
+	films f;
+	
+SELECT
+    CASE 
+        WHEN release_year BETWEEN 1910 AND 1919 THEN '1910s'
+        WHEN release_year BETWEEN 1920 AND 1929 THEN '1920s'
+        WHEN release_year BETWEEN 1930 AND 1939 THEN '1930s'
+        WHEN release_year BETWEEN 1940 AND 1949 THEN '1940s'
+        WHEN release_year BETWEEN 1950 AND 1959 THEN '1950s'
+        WHEN release_year BETWEEN 1960 AND 1969 THEN '1960s'
+        WHEN release_year BETWEEN 1970 AND 1979 THEN '1970s'
+        WHEN release_year BETWEEN 1980 AND 1989 THEN '1980s'
+        WHEN release_year BETWEEN 1990 AND 1999 THEN '1990s'
+        WHEN release_year BETWEEN 2000 AND 2009 THEN '2000s'
+        WHEN release_year BETWEEN 2010 AND 2019 THEN '2010s'
+    END AS decades,
+    SUM(gross) AS decade_gross
+FROM 
+    films f 
+WHERE 
+	gross IS NOT NULL
+	AND release_year IS NOT NULL
+GROUP BY
+    decades
+ORDER BY 
+    decades;
+   
+   
+SELECT 
+ 	country,
+ 	COUNT(title) AS movie_count,
+ 	SUM(budget) AS total_budget,
+ 	SUM(gross) AS total_gross
+FROM 
+ 	films f
+WHERE
+	gross IS NOT NULL
+	AND budget IS NOT NULL
+GROUP BY
+ 	country
+ORDER BY 
+	total_budget DESC, total_gross DESC;
+
